@@ -1,0 +1,159 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="container mt-5" style="max-width: 800px;">
+    <div class="card shadow-lg">
+      <div class="card-body p-5">
+        <h2 class="card-title mb-4 text-center">
+          <i class="fas fa-edit text-warning me-2"></i>Edit Listing
+        </h2>
+
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" enctype="multipart/form-data"
+          class="needs-validation" novalidate>
+
+          <div class="mb-4">
+            <label class="form-label" for="title">
+              <i class="fas fa-heading me-1"></i>Title
+            </label>
+            <input type="text" class="form-control" id="title" name="listing[title]" value="<%= listing.title %>"
+              required>
+            <div class="invalid-feedback">Please provide a title.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="description">
+              <i class="fas fa-align-left me-1"></i>Description
+            </label>
+            <textarea class="form-control" id="description" name="listing[description]" rows="5"
+              required><%= listing.description %></textarea>
+            <div class="invalid-feedback">Please provide a description.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="category">
+              <i class="fas fa-list-alt me-1"></i>Category
+            </label>
+            <select class="form-select" id="category" name="listing[category]" required>
+              <% const categories=['Hotels', 'Resorts' , 'Villas' , 'Beach Houses' , 'Mountain Stays' , 'Budget Rooms'
+                , 'Luxury Stays' , 'Trending' , 'Popular Places' , 'Nearby Locations' ]; %>
+                <% categories.forEach(cat=> { %>
+                  <option value="<%= cat %>" <%=listing.category===cat ? 'selected' : '' %>><%= cat %>
+                  </option>
+                  <% }) %>
+            </select>
+            <div class="invalid-feedback">Please select a category.</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label class="form-label" for="price">
+                <i class="fas fa-rupee-sign me-1"></i>Price (per night)
+              </label>
+              <input type="number" class="form-control" id="price" name="listing[price]" value="<%= listing.price %>"
+                min="0" required>
+              <div class="invalid-feedback">Please provide a valid price.</div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <label class="form-label" for="location">
+                <i class="fas fa-map-marker-alt me-1"></i>Location
+              </label>
+              <input type="text" class="form-control" id="location" name="listing[location]"
+                value="<%= listing.location %>" required>
+              <div class="invalid-feedback">Please provide a location.</div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="country">
+              <i class="fas fa-flag me-1"></i>Country
+            </label>
+            <input type="text" class="form-control" id="country" name="listing[country]" value="<%= listing.country %>"
+              required>
+            <div class="invalid-feedback">Please provide a country.</div>
+          </div>
+
+          <!-- Current Images Display -->
+          <% if (listing.images && listing.images.length> 0) { %>
+            <div class="mb-4">
+              <label class="form-label">
+                <i class="fas fa-images me-1"></i>Current Images
+              </label>
+              <div class="row g-2">
+                <% listing.images.forEach(img=> { %>
+                  <div class="col-4">
+                    <img src="<%= img.url %>" class="img-thumbnail" alt="Listing image">
+                    <div class="form-check mt-2">
+                      <input class="form-check-input" type="checkbox" name="deleteImages[]" id="delete-<%= img.filename %>" value="<%= img.filename %>">
+                      <label class="form-check-label" for="delete-<%= img.filename %>">Delete</label>
+                    </div>
+                  </div>
+                  <% }) %>
+              </div>
+            </div>
+            <% } %>
+
+            <% if (listing.images && listing.images.length > 0) { %>
+              <div class="mb-4">
+                <label class="form-label">
+                  <i class="fas fa-image me-1"></i>Cover Image
+                </label>
+                <div class="d-flex flex-wrap gap-3">
+                  <% listing.images.forEach(img => { %>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="coverImageFilename" id="cover-<%= img.filename %>" value="<%= img.filename %>"
+                        <%= (listing.coverImageFilename ? listing.coverImageFilename === img.filename : listing.images[0].filename === img.filename) ? 'checked' : '' %>>
+                      <label class="form-check-label" for="cover-<%= img.filename %>">
+                        Set cover
+                      </label>
+                    </div>
+                  <% }) %>
+                </div>
+                <div class="form-text">The cover image is used on listing cards.</div>
+              </div>
+            <% } %>
+
+              <div class="mb-4">
+                <label class="form-label" for="images">
+                  <i class="fas fa-plus-circle me-1"></i>Add More Images
+                </label>
+                <input type="file" class="form-control" id="images" name="images" multiple accept="image/*">
+                <div class="form-text">Upload additional images (JPG, PNG)</div>
+              </div>
+
+              <div class="mb-4 d-none" id="imagePreviewSection">
+                <label class="form-label">
+                  <i class="fas fa-image me-1"></i>Preview new uploads
+                </label>
+                <div class="row g-2" id="imagePreviewGrid"></div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg">
+                  <i class="fas fa-save me-2"></i>Update Listing
+                </button>
+                <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary">
+                  <i class="fas fa-times me-2"></i>Cancel
+                </a>
+              </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bootstrap form validation
+    (function () {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>

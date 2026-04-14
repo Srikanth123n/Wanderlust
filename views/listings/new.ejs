@@ -1,0 +1,123 @@
+<% layout('layouts/boilerplate') %>
+
+  <div class="container mt-5" style="max-width: 800px;">
+    <div class="card shadow-lg">
+      <div class="card-body p-5">
+        <h2 class="card-title mb-4 text-center">
+          <i class="fas fa-plus-circle text-primary me-2"></i>Create New Listing
+        </h2>
+
+        <form action="/listings" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+          <div class="mb-4">
+            <label class="form-label" for="title">
+              <i class="fas fa-heading me-1"></i>Title
+            </label>
+            <input type="text" class="form-control" id="title" name="listing[title]"
+              placeholder="e.g., Cozy Beach House in Goa" required>
+            <div class="invalid-feedback">Please provide a title.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="description">
+              <i class="fas fa-align-left me-1"></i>Description
+            </label>
+            <textarea class="form-control" id="description" name="listing[description]" rows="5"
+              placeholder="Describe your property, amenities, and what makes it special..." required></textarea>
+            <div class="invalid-feedback">Please provide a description.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="category">
+              <i class="fas fa-list-alt me-1"></i>Category
+            </label>
+            <select class="form-select" id="category" name="listing[category]" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="Hotels">Hotels</option>
+              <option value="Resorts">Resorts</option>
+              <option value="Villas">Villas</option>
+              <option value="Beach Houses">Beach Houses</option>
+              <option value="Mountain Stays">Mountain Stays</option>
+              <option value="Budget Rooms">Budget Rooms</option>
+              <option value="Luxury Stays">Luxury Stays</option>
+              <option value="Trending">Trending</option>
+              <option value="Popular Places">Popular Places</option>
+              <option value="Nearby Locations">Nearby Locations</option>
+            </select>
+            <div class="invalid-feedback">Please select a category.</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label class="form-label" for="price">
+                <i class="fas fa-rupee-sign me-1"></i>Price (per night)
+              </label>
+              <input type="number" class="form-control" id="price" name="listing[price]" min="0" placeholder="5000"
+                required>
+              <div class="invalid-feedback">Please provide a valid price.</div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+              <label class="form-label" for="location">
+                <i class="fas fa-map-marker-alt me-1"></i>Location
+              </label>
+              <input type="text" class="form-control" id="location" name="listing[location]"
+                placeholder="e.g., Calangute Beach" required>
+              <div class="invalid-feedback">Please provide a location.</div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="country">
+              <i class="fas fa-flag me-1"></i>Country
+            </label>
+            <input type="text" class="form-control" id="country" name="listing[country]" placeholder="e.g., India"
+              required>
+            <div class="invalid-feedback">Please provide a country.</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="images">
+              <i class="fas fa-images me-1"></i>Upload Images
+            </label>
+            <input type="file" class="form-control" id="images" name="images" multiple accept="image/*">
+            <div class="form-text">You can upload multiple images (JPG, PNG)</div>
+          </div>
+
+          <div class="mb-4 d-none" id="imagePreviewSection">
+            <label class="form-label">
+              <i class="fas fa-image me-1"></i>Preview
+            </label>
+            <div class="row g-2" id="imagePreviewGrid"></div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-check-circle me-2"></i>Create Listing
+            </button>
+            <a href="/listings" class="btn btn-outline-secondary">
+              <i class="fas fa-times me-2"></i>Cancel
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Bootstrap form validation
+    (function () {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>

@@ -1,0 +1,77 @@
+/* Starrability CSS for star rating */
+.starability-basic {
+  display: inline-block;
+  position: relative;
+  width: 10em;
+  height: 2em;
+  font-size: 1.5em;
+  margin: 0.5em 0;
+}
+
+.starability-basic > input {
+  position: absolute;
+  margin-right: -100%;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.starability-basic > input:checked ~ label,
+.starability-basic > input:focus ~ label {
+  color: #FFD700;
+}
+
+.starability-basic > input:checked + label {
+  color: #FFD700;
+}
+
+.starability-basic > label {
+  float: right;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  width: 2em;
+  height: 2em;
+  color: #ccc;
+}
+
+.starability-basic > label:before {
+  content: '\2605';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  line-height: 1;
+}
+
+.starability-basic > input:checked ~ label:before,
+.starability-basic > input:focus ~ label:before,
+.starability-basic > label:hover:before,
+.starability-basic > label:hover ~ label:before {
+  color: #FFD700;
+}
+
+.starability-basic > input:checked ~ label:before {
+  color: #FFD700;
+}
+
+.starability-result {
+  display: inline-block;
+  font-size: 1.2em;
+  color: #FFD700;
+  line-height: 1;
+}
+
+.starability-result:before {
+  content: '\2605\2605\2605\2605\2605';
+  letter-spacing: 0.1em;
+  color: #FFD700;
+}
+
+/* Hide labels text */
+.starability-basic > label {
+  text-indent: -9999px;
+  overflow: hidden;
+}
+

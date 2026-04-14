@@ -1,0 +1,101 @@
+<% layout('layout') %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2><i class="fas fa-user"></i> My Profile</h2>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body text-center">
+        <i class="fas fa-user-circle fa-5x text-primary mb-3"></i>
+        <h4><%= user.username %></h4>
+        <p class="text-muted"><%= user.email %></p>
+        <p class="text-muted">
+          <small>Member since <%= new Date(user.createdAt).toLocaleDateString() %></small>
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5><i class="fas fa-list"></i> My Listings (<%= userListings.length %>)</h5>
+      </div>
+      <div class="card-body">
+        <% if(userListings && userListings.length > 0) { %>
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <% userListings.forEach(function(listing) { %>
+              <div class="col">
+                <div class="card">
+                  <% if(listing.images && listing.images.length > 0) { %>
+                    <% const cover = (listing.coverImageFilename && listing.images.find(i => i.filename === listing.coverImageFilename)) || listing.images[0]; %>
+                    <img src="<%= cover.url %>" class="card-img-top" style="height: 150px; object-fit: cover;">
+                  <% } %>
+                  <div class="card-body">
+                    <h6 class="card-title"><%= listing.title %></h6>
+                    <p class="card-text text-muted small">
+                      <i class="fas fa-map-marker-alt"></i> <%= listing.location %>
+                    </p>
+                    <p class="card-text">
+                      <strong>₹<%= listing.price ? listing.price.toLocaleString('en-IN') : '0' %></strong> / night
+                    </p>
+                    <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-outline-primary">View</a>
+                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-sm btn-outline-secondary">Edit</a>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <p class="text-muted">You haven't created any listings yet.</p>
+          <a href="/listings/new" class="btn btn-primary">Create Your First Listing</a>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fas fa-heart"></i> My Favorites (<%= user.favorites ? user.favorites.length : 0 %>)</h5>
+      </div>
+      <div class="card-body">
+        <% if(user.favorites && user.favorites.length > 0) { %>
+          <div class="row row-cols-1 row-cols-md-2 g-3">
+            <% user.favorites.forEach(function(listing) { %>
+              <div class="col">
+                <div class="card">
+                  <% if(listing.images && listing.images.length > 0) { %>
+                    <% const cover = (listing.coverImageFilename && listing.images.find(i => i.filename === listing.coverImageFilename)) || listing.images[0]; %>
+                    <img src="<%= cover.url %>" class="card-img-top" style="height: 150px; object-fit: cover;">
+                  <% } %>
+                  <div class="card-body">
+                    <h6 class="card-title"><%= listing.title %></h6>
+                    <p class="card-text text-muted small">
+                      <i class="fas fa-map-marker-alt"></i> <%= listing.location %>
+                    </p>
+                    <p class="card-text">
+                      <strong>₹<%= listing.price ? listing.price.toLocaleString('en-IN') : '0' %></strong> / night
+                    </p>
+                    <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-outline-primary">View</a>
+                    <form method="POST" action="/listings/<%= listing._id %>/favorite/remove" class="d-inline">
+                      <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Remove from favorites?')">
+                        <i class="fas fa-heart-broken"></i> Remove
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        <% } else { %>
+          <p class="text-muted">You haven't favorited any listings yet.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+

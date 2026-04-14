@@ -1,0 +1,140 @@
+<nav class="category-navbar">
+    <div class="container-fluid">
+        <div class="category-scroll">
+            <a href="/listings" class="category-item <%= !locals.category ? 'active' : '' %>">
+                <i class="fas fa-th me-1"></i>
+                <span>All</span>
+            </a>
+            <a href="/listings?category=Hotels"
+                class="category-item <%= locals.category === 'Hotels' ? 'active' : '' %>">
+                <i class="fas fa-hotel me-1"></i>
+                <span>Hotels</span>
+            </a>
+            <a href="/listings?category=Resorts"
+                class="category-item <%= locals.category === 'Resorts' ? 'active' : '' %>">
+                <i class="fas fa-umbrella-beach me-1"></i>
+                <span>Resorts</span>
+            </a>
+            <a href="/listings?category=Villas"
+                class="category-item <%= locals.category === 'Villas' ? 'active' : '' %>">
+                <i class="fas fa-home me-1"></i>
+                <span>Villas</span>
+            </a>
+            <a href="/listings?category=Beach Houses"
+                class="category-item <%= locals.category === 'Beach Houses' ? 'active' : '' %>">
+                <i class="fas fa-water me-1"></i>
+                <span>Beach Houses</span>
+            </a>
+            <a href="/listings?category=Mountain Stays"
+                class="category-item <%= locals.category === 'Mountain Stays' ? 'active' : '' %>">
+                <i class="fas fa-mountain me-1"></i>
+                <span>Mountain Stays</span>
+            </a>
+            <a href="/listings?category=Budget Rooms"
+                class="category-item <%= locals.category === 'Budget Rooms' ? 'active' : '' %>">
+                <i class="fas fa-dollar-sign me-1"></i>
+                <span>Budget Rooms</span>
+            </a>
+            <a href="/listings?category=Luxury Stays"
+                class="category-item <%= locals.category === 'Luxury Stays' ? 'active' : '' %>">
+                <i class="fas fa-gem me-1"></i>
+                <span>Luxury Stays</span>
+            </a>
+            <a href="/listings?category=Trending"
+                class="category-item <%= locals.category === 'Trending' ? 'active' : '' %>">
+                <i class="fas fa-fire me-1"></i>
+                <span>Trending</span>
+            </a>
+            <a href="/listings?category=Popular Places"
+                class="category-item <%= locals.category === 'Popular Places' ? 'active' : '' %>">
+                <i class="fas fa-star me-1"></i>
+                <span>Popular</span>
+            </a>
+            <a href="/listings?category=Nearby Locations"
+                class="category-item <%= locals.category === 'Nearby Locations' ? 'active' : '' %>">
+                <i class="fas fa-map-marker-alt me-1"></i>
+                <span>Nearby</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    .category-navbar {
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 56px;
+        z-index: 1040;
+        padding: 0.75rem 0;
+    }
+
+    .category-scroll {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .category-scroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    .category-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        min-width: 100px;
+    }
+
+    .category-item i {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .category-item:hover {
+        background: #f3f4f6;
+        color: #667eea;
+        transform: translateY(-2px);
+    }
+
+    .category-item.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        border-color: #667eea;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .category-item.active:hover {
+        color: #ffffff;
+    }
+
+    @media (max-width: 768px) {
+        .category-navbar {
+            top: 56px;
+        }
+
+        .category-item {
+            min-width: 80px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        .category-item i {
+            font-size: 1rem;
+        }
+    }
+</style>

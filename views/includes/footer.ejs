@@ -1,0 +1,50 @@
+<footer class="mt-5 py-4" style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5><i class="fas fa-globe-americas me-2"></i>Wanderlust</h5>
+        <p class="text-muted">Discover amazing places around the world. Your journey starts here.</p>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="/listings" class="text-decoration-none text-muted hover-link">All Listings</a></li>
+          <% if (currUser) { %>
+            <li><a href="/listings/new" class="text-decoration-none text-muted hover-link">Add Listing</a></li>
+            <li><a href="/profile" class="text-decoration-none text-muted hover-link">My Profile</a></li>
+            <% } else { %>
+              <li><a href="/login" class="text-decoration-none text-muted hover-link">Login</a></li>
+              <li><a href="/register" class="text-decoration-none text-muted hover-link">Sign Up</a></li>
+              <% } %>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Connect</h6>
+        <div class="social-links">
+          <a href="#" class="text-muted me-3"><i class="fab fa-facebook fa-lg"></i></a>
+          <a href="#" class="text-muted me-3"><i class="fab fa-twitter fa-lg"></i></a>
+          <a href="#" class="text-muted me-3"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="#" class="text-muted"><i class="fab fa-linkedin fa-lg"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="border-secondary">
+    <div class="text-center text-muted">
+      <p class="mb-0">© <%= new Date().getFullYear() %> Wanderlust. All rights reserved. | Made with <i
+            class="fas fa-heart text-danger"></i> by Wanderlust Team</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .hover-link:hover {
+    color: #06b6d4 !important;
+    transition: color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #06b6d4 !important;
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+  }
+</style>
