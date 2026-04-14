@@ -43,16 +43,16 @@
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](https://via.placeholder.com/800x450/667eea/ffffff?text=Listings+Grid+View)
+<img width="1920" height="1080" alt="Screenshot (170)" src="https://github.com/user-attachments/assets/0f7d8ff3-6660-4a9c-be6d-512073c1fe1b" />
+
 
 ### Listing Details with Map
-![Listing Details](https://via.placeholder.com/800x450/764ba2/ffffff?text=Listing+Details+%2B+Leaflet+Map)
+<img width="1920" height="1080" alt="Screenshot (171)" src="https://github.com/user-attachments/assets/699cebc7-863c-42a8-8f7a-2b5f0a8b019d" />
 
 ### Create New Listing
-![Create Listing](https://via.placeholder.com/800x450/4f46e5/ffffff?text=Create+Listing+Form)
+<img width="1920" height="1080" alt="Screenshot (172)" src="https://github.com/user-attachments/assets/85f1dbd3-1acf-4283-99e3-1de8db35d579" />
 
-### User Authentication
-![Login Page](https://via.placeholder.com/800x450/06b6d4/ffffff?text=Login+Page)
+
 
 ---
 
